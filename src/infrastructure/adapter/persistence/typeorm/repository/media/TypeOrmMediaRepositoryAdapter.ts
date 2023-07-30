@@ -25,7 +25,7 @@ export class TypeOrmMediaRepositoryAdapter extends BaseRepository<TypeOrmMedia> 
       query.andWhere(this.excludeRemovedMediaClause);
     }
     
-    const ormEntity: Optional<TypeOrmMedia> = await query.getOne();
+    const ormEntity: Optional<TypeOrmMedia> = await query.getOneOrFail();
     
     if (ormEntity) {
       domainEntity = TypeOrmMediaMapper.toDomainEntity(ormEntity);

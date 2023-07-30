@@ -28,7 +28,7 @@ export class TypeOrmPostRepositoryAdapter extends BaseRepository<TypeOrmPost> im
       query.andWhere(this.excludeRemovedPostClause);
     }
     
-    const ormEntity: Optional<TypeOrmPost> = await query.getOne();
+    const ormEntity: Optional<TypeOrmPost> = await query.getOneOrFail();
     
     if (ormEntity) {
       domainEntity = TypeOrmPostMapper.toDomainEntity(ormEntity);

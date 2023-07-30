@@ -1,5 +1,5 @@
 import { RepositoryFindOptions } from '@core/common/persistence/RepositoryOptions';
-import { Nullable, Optional } from '@core/common/type/CommonTypes';
+import { Optional } from '@core/common/type/CommonTypes';
 import { User } from '@core/domain/user/entity/User';
 import { UserRepositoryPort } from '@core/domain/user/port/persistence/UserRepositoryPort';
 import { TypeOrmUserMapper } from '@infrastructure/adapter/persistence/typeorm/entity/user/mapper/TypeOrmUserMapper';
@@ -25,7 +25,7 @@ export class TypeOrmUserRepositoryAdapter extends BaseRepository<TypeOrmUser> im
       query.andWhere(this.excludeRemovedUserClause);
     }
     
-    const ormEntity: Optional<TypeOrmUser> = await query.getOne();
+    const ormEntity: Optional<TypeOrmUser> = await query.getOneOrFail();
     
     if (ormEntity) {
       domainEntity = TypeOrmUserMapper.toDomainEntity(ormEntity);
